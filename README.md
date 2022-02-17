@@ -15,3 +15,5 @@
 2. Navigate to directory containing folder, and open said folder within a terminal.
 3. Enter `pip install -r requirements.txt` to install all dependencies for this package.
 4. Done!
+
+---

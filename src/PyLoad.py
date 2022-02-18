@@ -1,21 +1,47 @@
 #!/usr/bin/env python3
 
+import datetime
 from logging import INFO
-from logging import basicConfig as config
+from logging import basicConfig
 from logging import error, info
 from os import chdir
-from os.path import dirname, join
+from os.path import dirname
 from time import sleep as s
 
 import tqdm
 
 #> Set CWD.
-chdir(join(dirname(dirname(__file__))))
+chdir(dirname(dirname(__file__)))
 
 #< Logger configuration.
-config(filename='./logs/logfile.log',
-       format='%(asctime)s - %(levelname)s - %(message)s',
-       level=INFO)
+basicConfig(filename='./logs/logfile.log',
+            filemode='a',
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            level=INFO)
+
+
+def log_header() -> int:
+    """Generate log header including time and date of logging.
+
+    :return: formatted log header.
+    :rtype: int
+    """
+    with open(r'./logs/logfile.log', 'a') as logfile:
+        return logfile.write(
+            f'Date: {datetime.datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+        )
+
+
+def log_footer() -> int:
+    """Generate log footer including date and time of logger shutdown.
+
+    :return: formatted log footer,
+    :rtype: int
+    """
+    with open(r'./logs/logfile.log', 'a') as logfile:
+        return logfile.write(
+            f'End of log file for date: {datetime.datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+        )
 
 
 def load(
@@ -28,16 +54,20 @@ def load(
 
     - User may set custom strings through the parameters `msg_loading` and `msg_complete`.
     - Set the length of pause in seconds using the `time` parameter.
+        - Every increment of 5 units = 5 seconds.
     - Displaying a progress bar is activated by default, but may be disables using the `progressbar` parameter.
+    - Examples:
+        - `>>> load(time=10, progressbar=True)` will take 2 seconds to fill the progress bar.
+        - `>>> load(time=10, progressbar=False)` will take 2 seconds for `msg_complete` to display, following `msg_loading`.
 
     Parameters:
         :param msg_loading: message to display during loading process, defaults to `"Loading"`
         :type msg_loading: str, optional
         :param msg_complete: message to display upon load completion, defaults to `"Done!"`
         :type msg_complete: str, optional
-        :param progressbar: whether to display progress bar during loading process, defaults to True
+        :param progressbar: whether to display progress bar during loading process, defaults to `True`
         :type progressbar: bool, optional
-        :param time: time in seconds for progress bar to reach completion, defaults to `5` seconds.
+        :param time: time in seconds for progress bar to reach completion, defaults to `5`.
         :type time: int, optional
         :return: loading sequence accompanied by an explanatory message to the user, and optional progress bar.
         :rtype: bool
@@ -46,9 +76,9 @@ def load(
     try:
         #> Change loading message(s) to custom value(s):
         if msg_loading != 'Loading':
-            msg_loading = str(msg_loading)
+            msg_loading = msg_loading
         if msg_complete != 'Done':
-            msg_complete = str(msg_complete)
+            msg_complete = msg_complete
 
         #$ Return load sequence:
         if progressbar:
@@ -81,4 +111,6 @@ def load(
 
 
 if __name__ == '__main__':
+    log_header()
     load()
+    log_footer()

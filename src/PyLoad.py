@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import datetime
+from datetime import datetime
 from logging import INFO
 from logging import basicConfig
 from logging import error, info
@@ -21,26 +21,26 @@ basicConfig(filename='./logs/logfile.log',
 
 
 def log_header() -> int:
-    """Generate log header including time and date of logging.
+    """Generate log header including time and date of logger startup/shutdown.
 
     :return: formatted log header.
     :rtype: int
     """
     with open(r'./logs/logfile.log', 'a') as logfile:
         return logfile.write(
-            f'Date: {datetime.datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+            f'Date: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
         )
 
 
 def log_footer() -> int:
-    """Generate log footer including date and time of logger shutdown.
+    """Generate log footer including date and time of logger startup/shutdown.
 
     :return: formatted log footer,
     :rtype: int
     """
     with open(r'./logs/logfile.log', 'a') as logfile:
         return logfile.write(
-            f'End of log file for date: {datetime.datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+            f'End of log file for date: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
         )
 
 
@@ -87,7 +87,6 @@ def load(
             )
             print(f'{msg_loading}...\n')
             for time in tqdm.trange(time):
-                print('.', end='')
                 s(0.1)
                 time -= 1
         else:

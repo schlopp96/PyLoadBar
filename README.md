@@ -1,4 +1,4 @@
-# PyLoad
+# PyLoadBar
 
 > _**Simple, easy-to-use loading sequence module.**_
 
@@ -15,15 +15,25 @@
 
 - Includes an _optional_ progress bar (simple change the `progressbar` parameter to equal `"True"`).
 
-## Installing PyLoad
+## Installing PyLoadBar
 
-> _**`pip` installation coming soon...!**_
+---
+
+### Using pip
+
+> _Easiest_ method.
+
+- Run the following to install:
+
+```python
+    pip install PyLoadBar
+```
 
 ---
 
 ### Manual Installation
 
-1. Download source code from the [PyLoad GitHub](https://github.com/PyLoad) repo.
+1. Download source code from the [PyLoadBar GitHub](https://github.com/PyLoadBar) repo.
 
 2. Extract contents of the containing `**.zip` file to desired install location.
 
@@ -31,40 +41,44 @@
 
 4. Enter `pip install -r requirements.txt` to install all dependencies for this package.
 
-5. Done!
+5. Finally, move the `"PyLoadBar-vx.x.x"` diretory to your global Python 3rd-party package installation directory to be able to import `PyLoadBar` like any other module:
+
+   - `"path/to/python/Lib/site-packages/here"`
+
+6. Done!
 
 ---
 
 ## Usage
 
-- Within a `.py` project, simply import the `PyLoad` module to start using your custom loading sequence.
+- Within a `.py` project, simply import the `PyLoadBar` module to start using your custom loading sequence.
 
-- `PyLoad` is _very_ simple to use.
+- `PyLoadBar` is _very_ simple to use.
 
   - For example, try running the following:
 
-        ```python
+```python
 
-        from PyLoad import load
+from PyLoadBar import load
 
-        equation = 20 * 20
+equation = 20 * 20
 
-        load(msg_loading = 'Solving', msg_complete = 'Okay!\n')
+load(msg_loading = 'Solving', msg_complete = 'Okay!\n')
 
-        print(equation)
-        ```
+print(equation)
+```
 
-  - This will return:
+- This will return:
 
-        ```
-        Solving...
+```python
+Solving...
 
-        100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
+100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
 
-        Okay!
+Okay!
 
-        400
-        ```
+400
+```
 
 - Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading` and `msg_complete` parameters respectively.
 
@@ -76,8 +90,15 @@
 
 ---
 
+## Contributing to PyLoadBar
+
+- If you wish to help contribute to this project, along with the tools you need to develop and run tests, please run the following in your virtual env:
+  '''python
+  pip install -e .[dev]
+  '''
+
 ## Contact
 
-- If you have any questions, comments, or concerns that cannot be alleviated through the [project's GitHub repository](https://github.com/schlopp96/PyLoad), please feel free to contact me through my email address:
+- If you have any questions, comments, or concerns that cannot be alleviated through the [project's GitHub repository](https://github.com/schlopp96/PyLoadBar), please feel free to contact me through my email address:
 
   - `schloppdaddy@gmail.com`

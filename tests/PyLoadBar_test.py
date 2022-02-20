@@ -1,12 +1,13 @@
-from PyLoad import load
+from PyLoadBar import load
 
 
 def test_loadA():
-    assert load(time=3,progressbar=False) == True
+    assert load(time=3, progressbar=False) == True
 
 
 def test_loadB():
-    assert load("Taking sweet time", "Fucking finally...\n\nJesus christ.") == True
+    assert load("Taking sweet time",
+                "Fucking finally...\n\nJesus christ.") == True
 
 
 def test_loadC():

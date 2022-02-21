@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setup(name='PyLoadBar',
-      version='0.0.1',
+      version='0.0.2',
       description='Simple, easy-to-use loading sequence/progress bar module.',
       py_modules=["PyLoadBar"],
       package_dir={'': 'src'},

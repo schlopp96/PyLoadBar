@@ -11,7 +11,7 @@ from time import sleep as s
 import tqdm
 
 #> Set CWD.
-chdir(dirname(dirname(__file__)))
+chdir(dirname(__file__))
 
 #< Logger configuration.
 basicConfig(filename='./logs/logfile.log',

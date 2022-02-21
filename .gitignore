@@ -160,9 +160,3 @@ cython_debug/
 
 # Update Notes
 update-notes.md
-
-# log files
-logs/logfile.log
-
-# Update Notes
-update-notes.md

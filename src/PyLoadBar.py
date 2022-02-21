@@ -4,8 +4,8 @@ from datetime import datetime
 from logging import INFO
 from logging import basicConfig
 from logging import error, info
-from os import chdir
-from os.path import dirname
+from os import chdir, mkdir
+from os.path import dirname, exists
 from time import sleep as s
 
 import tqdm
@@ -13,11 +13,19 @@ import tqdm
 #> Set CWD.
 chdir(dirname(__file__))
 
-#< Logger configuration.
-basicConfig(filename='./logs/logfile.log',
-            filemode='a',
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            level=INFO)
+
+def createLogs():
+    try:
+        if exists(r'./logs/logsfile.log') == False:
+            mkdir(r'./logs')
+            fh = open(r'./logs/logfile.log', 'x')
+            fh.close()
+            info('Log file created.')
+    except FileExistsError:
+        info('Log file opened.')
+
+
+createLogs()
 
 
 def log_header() -> int:
@@ -110,6 +118,12 @@ def load(
 
 
 if __name__ == '__main__':
+    #< Logger configuration.
+    createLogs()
+    basicConfig(filename='./logs/logfile.log',
+                filemode='a',
+                format='%(asctime)s - %(levelname)s - %(message)s',
+                level=INFO)
     log_header()
     load()
     log_footer()

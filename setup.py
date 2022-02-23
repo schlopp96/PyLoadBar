@@ -1,17 +1,16 @@
-from os import name
 from setuptools import setup
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setup(name='PyLoadBar',
-      version='0.0.3',
+      version='0.0.3.1',
       description='Simple, easy-to-use loading sequence/progress bar module.',
       py_modules=["PyLoadBar"],
       package_dir={'': 'src'},
       classifiers=[
           "Development Status :: 1 - Planning",
-          "Programming Language :: Python :: 3.0",
+          "Programming Language :: Python :: 3",
           "Topic :: Utilities",
           "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
       ],

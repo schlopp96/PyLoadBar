@@ -1,42 +1,51 @@
 #!/usr/bin/env python3
+#%==============================================================================================%#
 
-from datetime import datetime
-from logging import INFO
-from logging import basicConfig
-from logging import error, info
+from logging import INFO, basicConfig, error, info
 from os import chdir, mkdir
 from os.path import dirname, exists
-from time import sleep as s
 
-import tqdm
+VERSION = '0.0.4'
 
-#> Set CWD.
+#> Set CWD:
 chdir(dirname(__file__))
 
 
+#< Set Log Configuration:
 def createLogs():
     try:
-        if exists(r'./logs/logsfile.log') == False:
-            mkdir(r'./logs')
-            fh = open(r'./logs/logfile.log', 'x')
-            fh.close()
-            info('Log file created.')
+        if exists(r'./PLB_logs/logsfile.log') == False:
+            mkdir(r'./PLB_logs')
+            with open(r'./PLB_logs/logfile.log', 'x') as fh:
+                fh.write(f'PyLoadBar v{VERSION} - Log file created.')
     except FileExistsError:
-        info('Log file opened.')
+        with open(r'./PLB_logs/logfile.log', 'a') as fh:
+            fh.write(f'PyLoadBar v{VERSION} - Log file opened.')
 
 
 createLogs()
 
+basicConfig(filename='./PLB_logs/logfile.log',
+            filemode='a',
+            format='%(asctime)s - %(levelname)s - %(message)s',
+            level=INFO)
 
+from datetime import datetime
+from time import sleep as s
+
+import tqdm
+
+
+#%==============================================================================================%#
 def log_header() -> int:
     """Generate log header including time and date of logger startup/shutdown.
 
     :return: formatted log header.
     :rtype: int
     """
-    with open(r'./logs/logfile.log', 'a') as logfile:
+    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
         return logfile.write(
-            f'Date: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+            f'\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n'
         )
 
 
@@ -46,9 +55,9 @@ def log_footer() -> int:
     :return: formatted log footer,
     :rtype: int
     """
-    with open(r'./logs/logfile.log', 'a') as logfile:
+    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
         return logfile.write(
-            f'End of log file for date: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((16),"=")}\n\n'
+            f'\nEnd of log.\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n\n'
         )
 
 
@@ -62,11 +71,11 @@ def load(
 
     - User may set custom strings through the parameters `msg_loading` and `msg_complete`.
     - Set the length of pause in seconds using the `time` parameter.
-        - Every increment of 5 units = 5 seconds.
+        - Every increment of units = 0.1 seconds.
     - Displaying a progress bar is activated by default, but may be disables using the `progressbar` parameter.
     - Examples:
-        - `>>> load(time=10, progressbar=True)` will take 2 seconds to fill the progress bar.
-        - `>>> load(time=10, progressbar=False)` will take 2 seconds for `msg_complete` to display, following `msg_loading`.
+        - `>>> load(time=5, progressbar=True)` will take around 0.5 seconds to fill the progress bar.
+        - `>>> load(time=20, progressbar=False)` will take around 2 seconds for `msg_complete` to display, following `msg_loading`.
 
     Parameters:
         :param msg_loading: message to display during loading process, defaults to `"Loading"`
@@ -91,7 +100,7 @@ def load(
         #$ Return load sequence:
         if progressbar:
             info(
-                f'Begin loading sequence using progress bar...\n"Loading" Message: "{msg_loading}"\n'
+                f'Begin loading sequence using progress bar...\nLoading Message: "{msg_loading}"\n'
             )
             print(f'{msg_loading}...\n')
             for time in tqdm.trange(time):
@@ -99,7 +108,7 @@ def load(
                 time -= 1
         else:
             info(
-                f'Begin loading sequence NOT using progress bar...\n"Loading" Message: "{msg_complete}"\n'
+                f'Begin loading sequence NOT using progress bar...\nLoading Message: "{msg_complete}"\n'
             )
             print(f'{msg_loading}', end='')
             for time in range(time):
@@ -107,7 +116,7 @@ def load(
                 s(0.1)
                 time -= 1
         info(
-            f'Completed loading process!\n"Completed" Message: "{msg_complete}"\n'
+            f'Completed loading process!\nCompleted Message: "{msg_complete}"\nTime to completion: {(time * 0.1)+0.2} seconds.\n'
         )
         print(f'\n{msg_complete}')
         s(0.5)
@@ -118,12 +127,6 @@ def load(
 
 
 if __name__ == '__main__':
-    #< Logger configuration.
-    createLogs()
-    basicConfig(filename='./logs/logfile.log',
-                filemode='a',
-                format='%(asctime)s - %(levelname)s - %(message)s',
-                level=INFO)
     log_header()
     load()
     log_footer()

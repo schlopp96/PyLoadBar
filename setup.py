@@ -1,15 +1,15 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 with open('README.md', 'r') as fh:
     long_description = fh.read()
 
 setup(name='PyLoadBar',
-      version='0.0.3.1',
+      version='0.0.4',
       description='Simple, easy-to-use loading sequence/progress bar module.',
       py_modules=["PyLoadBar"],
       package_dir={'': 'src'},
       classifiers=[
-          "Development Status :: 1 - Planning",
+          "Development Status :: 3 - Alpha",
           "Programming Language :: Python :: 3",
           "Topic :: Utilities",
           "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -19,5 +19,5 @@ setup(name='PyLoadBar',
       install_requires=['setuptools>=58.1.0', 'tqdm==4.62.3'],
       extras_require={"dev": ["pytest>=6.2.5"]},
       url='https://github.com/schlopp96/PyLoadBar',
-      author='Schlopp96',
-      author_email='schlopp96@gmail.com')
+      author='schlopp96',
+      author_email='schloppdaddy@gmail.com')

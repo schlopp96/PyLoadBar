@@ -21,7 +21,7 @@
 
 ### Using pip
 
-> _Easiest_ method.
+> _Easiest_ method. Highly recommended over manual installation.
 
 - Run the following to install:
 
@@ -29,9 +29,13 @@
     pip install PyLoadBar
 ```
 
+- You should now be able to import `PyLoadBar` directly to your application.
+
 ---
 
 ### Manual Installation
+
+> _Not_ recommended.
 
 1. Download source code from the [PyLoadBar GitHub](https://github.com/PyLoadBar) repo.
 
@@ -61,11 +65,11 @@
 
 from PyLoadBar import load
 
-equation = 20 * 20
+def add50(x):
+  load(f'Adding 50 to {x}', 'Okay!\n')
+  return x + 50
 
-load(msg_loading = 'Solving', msg_complete = 'Okay!\n')
-
-print(equation)
+print(add50(50))
 ```
 
 - This will return:
@@ -77,7 +81,7 @@ Solving...
 
 Okay!
 
-400
+100
 ```
 
 - Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading` and `msg_complete` parameters respectively.
@@ -85,8 +89,8 @@ Okay!
 - Note that the progress bar **can** be toggled using the `progressbar: bool` parameter within the `load(msg_complete: str, msg_loading: str, progressbar: bool, time: int)` method.
 
 - The time taken to completely fill the progress bar can be determined using the `time: int` parameter.
-  - Every 5 units = 1 second.
-    - e.g. `load(time=10)` would take 2 seconds to fill the progress bar.
+  - Every 10 units = 1 second.
+    - e.g. `load(time=5)` (default) would take 0.5 seconds to fill the progress bar.
 
 ---
 

@@ -1,64 +1,33 @@
 #!/usr/bin/env python3
 #%==============================================================================================%#
 
-from logging import INFO, basicConfig, error, info
-from os import chdir, mkdir
-from os.path import dirname, exists
-
-VERSION = '0.0.4'
+from os import chdir
+from os.path import dirname
+import logging
+from time import sleep as s
+import tqdm
 
 #> Set CWD:
 chdir(dirname(__file__))
 
+VERSION = '0.0.5'
 
 #< Set Log Configuration:
-def createLogs():
-    try:
-        if exists(r'./PLB_logs/logsfile.log') == False:
-            mkdir(r'./PLB_logs')
-            with open(r'./PLB_logs/logfile.log', 'x') as fh:
-                fh.write(f'PyLoadBar v{VERSION} - Log file created.')
-    except FileExistsError:
-        with open(r'./PLB_logs/logfile.log', 'a') as fh:
-            fh.write(f'PyLoadBar v{VERSION} - Log file opened.')
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
 
+#$ Log formatting:
+formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
 
-createLogs()
+#& Create File Handler:
+fh = logging.FileHandler('../logs/logfile.log')
+fh.setFormatter(formatter)
 
-basicConfig(filename='./PLB_logs/logfile.log',
-            filemode='a',
-            format='%(asctime)s - %(levelname)s - %(message)s',
-            level=INFO)
-
-from datetime import datetime
-from time import sleep as s
-
-import tqdm
+#* Set File Handler
+logger.addHandler(fh)
 
 
 #%==============================================================================================%#
-def log_header() -> int:
-    """Generate log header including time and date of logger startup/shutdown.
-
-    :return: formatted log header.
-    :rtype: int
-    """
-    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
-        return logfile.write(
-            f'\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n'
-        )
-
-
-def log_footer() -> int:
-    """Generate log footer including date and time of logger startup/shutdown.
-
-    :return: formatted log footer,
-    :rtype: int
-    """
-    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
-        return logfile.write(
-            f'\nEnd of log.\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n\n'
-        )
 
 
 def load(
@@ -99,7 +68,7 @@ def load(
 
         #$ Return load sequence:
         if progressbar:
-            info(
+            logger.info(
                 f'Begin loading sequence using progress bar...\nLoading Message: "{msg_loading}"\n'
             )
             print(f'{msg_loading}...\n')
@@ -107,7 +76,7 @@ def load(
                 s(0.1)
                 time -= 1
         else:
-            info(
+            logger.info(
                 f'Begin loading sequence NOT using progress bar...\nLoading Message: "{msg_complete}"\n'
             )
             print(f'{msg_loading}', end='')
@@ -115,18 +84,15 @@ def load(
                 print('.', end='')
                 s(0.1)
                 time -= 1
-        info(
+        logger.info(
             f'Completed loading process!\nCompleted Message: "{msg_complete}"\nTime to completion: {(time * 0.1)+0.2} seconds.\n'
         )
         print(f'\n{msg_complete}')
         s(0.5)
         return True
     except ValueError as VE:
-        error(f'{VE}')
+        logger.error(f'{VE}')
         return False
 
-
 if __name__ == '__main__':
-    log_header()
     load()
-    log_footer()

@@ -1,4 +1,4 @@
-from src.PyLoadBar import load
+from PyLoadBar import load
 
 
 def test_loadA():

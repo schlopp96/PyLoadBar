@@ -2,9 +2,9 @@
 
 > _**Simple, easy-to-use loading sequence module.**_
 
----
-
 ## About
+
+---
 
 - Useful for small intermittant pauses between console text returns, or code actions.
 
@@ -13,11 +13,11 @@
   - Loading message defaults to `"Loading..."`.
   - Completion message defaults to `"Done!"`.
 
-- Includes an _optional_ progress bar (simple change the `progressbar: bool` parameter to equal `True`).
-
----
+- Includes an _optional_ progress bar (simple change the `progressbar` parameter to equal `"True"`).
 
 ## Installing PyLoadBar
+
+---
 
 ### Using pip
 
@@ -37,7 +37,7 @@
 
 > _Not_ recommended.
 
-1. Download source code from the [PyLoadBar GitHub repo](https://github.com/schlopp96/PyLoadBar).
+1. Download source code from the [PyLoadBar GitHub](https://github.com/PyLoadBar) repo.
 
 2. Extract contents of the containing `**.zip` file to desired install location.
 
@@ -84,9 +84,9 @@ Okay!
 100
 ```
 
-- Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
+- Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading` and `msg_complete` parameters respectively.
 
-- Note that the progress bar **can be toggled** using the `progressbar: bool` parameter within the `load(msg_complete: str, msg_loading: str, progressbar: bool, time: int)` method.
+- Note that the progress bar **can** be toggled using the `progressbar: bool` parameter within the `load(msg_complete: str, msg_loading: str, progressbar: bool, time: int)` method.
 
 - The time taken to completely fill the progress bar can be determined using the `time: int` parameter.
   - Every 10 units = 1 second.
@@ -100,8 +100,6 @@ Okay!
   '''python
   pip install -e .[dev]
   '''
-
----
 
 ## Contact
 

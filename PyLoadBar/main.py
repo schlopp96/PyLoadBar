@@ -20,7 +20,7 @@ logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
 
 #& Create File Handler:
-fh = logging.FileHandler('../logs/logfile.log')
+fh = logging.FileHandler('./logs/logfile.log', mode='a')
 fh.setFormatter(formatter)
 
 #* Set File Handler

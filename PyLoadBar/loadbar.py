@@ -13,24 +13,16 @@ chdir(dirname(__file__))
 
 VERSION = '0.0.5.1'
 
+#< Set Log Configuration:
 logger = logging.getLogger(__name__)
-
-
-def setLog():
-
-    #< Set Log Configuration:
-    logger.setLevel(logging.INFO)
-
-    #$ Log formatting:
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
-
-    #& Create File Handler:
-    fh = logging.FileHandler('./logs/logfile.log')
-    fh.setFormatter(formatter)
-
-    #* Set File Handler
-    logger.addHandler(fh)
-
+logger.setLevel(logging.INFO)
+#$ Log formatting:
+formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+#& Create File Handler:
+fh = logging.FileHandler('./logs/logfile.log')
+fh.setFormatter(formatter)
+#* Set File Handler
+logger.addHandler(fh)
 
 #%==============================================================================================%#
 
@@ -100,10 +92,5 @@ def load(
         return False
 
 
-def main():
-    setLog()
-    load()
-
-
 if __name__ == '__main__':
-    main()
+    load()

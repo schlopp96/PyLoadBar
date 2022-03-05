@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 #%==============================================================================================%#
 
+import logging
 from os import chdir
 from os.path import dirname
-import logging
 from time import sleep as s
+
 import tqdm
 
 #> Set CWD:

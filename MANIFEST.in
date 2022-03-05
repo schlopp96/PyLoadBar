@@ -1,5 +1,4 @@
 include *.in
 include *.txt
-recursive-include logs *.gitkeep
-recursive-include src *.py
+recursive-include PyLoadBar *.gitkeep
 recursive-include tests *.py

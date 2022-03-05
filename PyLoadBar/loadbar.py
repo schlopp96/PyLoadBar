@@ -11,20 +11,22 @@ import tqdm
 chdir(dirname(__file__))
 
 VERSION = '0.0.5.1'
-
-#< Set Log Configuration:
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
 
-#$ Log formatting:
-formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+def setLog():
 
-#& Create File Handler:
-fh = logging.FileHandler('./logs/logfile.log', mode='a')
-fh.setFormatter(formatter)
+    #< Set Log Configuration:
+    logger.setLevel(logging.INFO)
 
-#* Set File Handler
-logger.addHandler(fh)
+    #$ Log formatting:
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+
+    #& Create File Handler:
+    fh = logging.FileHandler('../logs/logfile.log', mode='a')
+    fh.setFormatter(formatter)
+
+    #* Set File Handler
+    logger.addHandler(fh)
 
 
 #%==============================================================================================%#
@@ -94,5 +96,9 @@ def load(
         logger.error(f'{VE}')
         return False
 
-if __name__ == '__main__':
+def main():
+    setLog()
     load()
+
+if __name__ == '__main__':
+    main()

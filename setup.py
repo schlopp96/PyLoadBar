@@ -14,7 +14,7 @@ setup(
     long_description_content_type='text/plain',
     packages=find_packages(),
     include_package_data=True,
-    entry_points={'console_scripts': ['load=PyLoadBar.main:load']},
+    entry_points={'console_scripts': ['quickload=PyLoadBar.loadbar:main']},
     install_requires=['setuptools>=58.1.0', 'tqdm>=4.62.3'],
     extras_require={"dev": ["pytest>=6.2.5"]},
     classifiers=[

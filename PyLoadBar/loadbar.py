@@ -12,7 +12,9 @@ import tqdm
 chdir(dirname(__file__))
 
 VERSION = '0.0.5.1'
+
 logger = logging.getLogger(__name__)
+
 
 def setLog():
 
@@ -23,7 +25,7 @@ def setLog():
     formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
 
     #& Create File Handler:
-    fh = logging.FileHandler('../logs/logfile.log', mode='a')
+    fh = logging.FileHandler('./logs/logfile.log')
     fh.setFormatter(formatter)
 
     #* Set File Handler
@@ -72,7 +74,7 @@ def load(
         #$ Return load sequence:
         if progressbar:
             logger.info(
-                f'Begin loading sequence using progress bar...\nLoading Message: "{msg_loading}"\n'
+                f'Begin loading sequence using progress bar...\n-> Loading Message: "{msg_loading}"\n'
             )
             print(f'{msg_loading}...\n')
             for time in tqdm.trange(time):
@@ -80,7 +82,7 @@ def load(
                 time -= 1
         else:
             logger.info(
-                f'Begin loading sequence NOT using progress bar...\nLoading Message: "{msg_complete}"\n'
+                f'Begin loading sequence NOT using progress bar...\n-> Loading Message: "{msg_complete}"\n'
             )
             print(f'{msg_loading}', end='')
             for time in range(time):
@@ -88,7 +90,7 @@ def load(
                 s(0.1)
                 time -= 1
         logger.info(
-            f'Completed loading process!\nCompleted Message: "{msg_complete}"\nTime to completion: {(time * 0.1)+0.2} seconds.\n'
+            f'Completed loading process!\n-> Completed Message: "{msg_complete}"\n-> Time to completion: {(time * 0.1)+0.2} seconds.\n'
         )
         print(f'\n{msg_complete}')
         s(0.5)
@@ -97,9 +99,11 @@ def load(
         logger.error(f'{VE}')
         return False
 
+
 def main():
     setLog()
     load()
+
 
 if __name__ == '__main__':
     main()

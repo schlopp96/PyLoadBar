@@ -25,28 +25,6 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 #%==============================================================================================%#
-def log_header() -> int:
-    """Generate log header including time and date of logger startup/shutdown.
-
-    :return: formatted log header.
-    :rtype: int
-    """
-    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
-        return logfile.write(
-            f'\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n'
-        )
-
-
-def log_footer() -> int:
-    """Generate log footer including date and time of logger startup/shutdown.
-
-    :return: formatted log footer,
-    :rtype: int
-    """
-    with open(r'./PLB_logs/logfile.log', 'a') as logfile:
-        return logfile.write(
-            f'\nEnd of log.\nDate: {datetime.now().strftime("%Y-%m-%d")}\nTime: {datetime.now().strftime("%H:%M:%S")}\n{"=".ljust((48),"=")}\n\n'
-        )
 
 chdir('.')
 
@@ -111,7 +89,7 @@ def load(
         s(0.5)
         return True
     except ValueError as VE:
-        error(f'{VE}')
+        logger.error(f'{VE}')
         return False
 
 

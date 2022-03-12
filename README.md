@@ -97,9 +97,10 @@ Okay!
 ## Contributing to PyLoadBar
 
 - If you wish to help contribute to this project, along with the tools you need to develop and run tests, please run the following in your virtual env:
-  '''python
-  pip install -e .[dev]
-  '''
+
+```python
+      pip install PyLoadBar[dev]
+```
 
 ---
 

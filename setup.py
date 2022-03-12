@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='PyLoadBar',
-    version='0.0.5.1',
+    version='0.0.6',
     description='Simple, easy-to-use loading sequence/progress bar module.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',
@@ -26,4 +26,4 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     ],
     keywords=
-    'python loading progress bar simple easy utilities useful package module')
+    'python loading progress bar simple easy utilities useful package module tqdm pytest')

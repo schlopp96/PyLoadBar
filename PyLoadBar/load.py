@@ -11,7 +11,7 @@ import tqdm
 #> Set CWD:
 chdir(dirname(__file__))
 
-VERSION = '0.0.5.1'
+VERSION = '0.0.6'
 
 #< Set Log Configuration:
 logger = logging.getLogger(__name__)
@@ -88,7 +88,7 @@ def load(
         s(0.5)
         return True
     except ValueError as VE:
-        logger.error(f'{VE}')
+        logger.exception(f'Exception occurred:\n===>{VE}')
         return False
 
 

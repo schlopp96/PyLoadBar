@@ -13,7 +13,7 @@
   - Loading message defaults to `"Loading..."`.
   - Completion message defaults to `"Done!"`.
 
-- Includes an _optional_ progress bar (simple change the `progressbar: bool` parameter to equal `True`).
+- Includes an _optional_ progress bar (simple change the `show_bar: bool` parameter to equal `True`).
 
 ---
 
@@ -62,7 +62,6 @@
   - For example, try running the following:
 
 ```python
-
 from PyLoadBar import load
 
 def add50(x):
@@ -86,7 +85,7 @@ Okay!
 
 - Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
-- Note that the progress bar **can be toggled** using the `progressbar: bool` parameter within the `load(msg_complete: str, msg_loading: str, progressbar: bool, time: int)` method.
+- Note that the progress bar **can be toggled** using the `show_bar: bool` parameter within the `load(msg_complete: str, msg_loading: str, show_bar: bool, time: int)` method.
 
 - The time taken to completely fill the progress bar can be determined using the `time: int` parameter.
   - Every 10 units = 1 second.
@@ -99,7 +98,7 @@ Okay!
 - If you wish to help contribute to this project, along with the tools you need to develop and run tests, please run the following in your virtual env:
 
 ```python
-      pip install PyLoadBar[dev]
+pip install PyLoadBar[dev]
 ```
 
 ---

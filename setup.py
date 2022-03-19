@@ -1,16 +1,18 @@
 from setuptools import setup, find_packages
+from .PyLoadBar.__init__ import __version__
 
 with open('README.md', 'r') as fh:
-    long_description = fh.read()
+    readme = fh.read()
 
 setup(
     name='PyLoadBar',
-    version='0.0.6',
+    version=__version__,
     description='Simple, easy-to-use loading sequence/progress bar module.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',
     author_email='schloppdaddy@gmail.com',
-    long_description=long_description,
+    license='GPL v3.0',
+    long_description=readme,
     long_description_content_type='text/plain',
     packages=find_packages(),
     include_package_data=True,
@@ -23,7 +25,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Topic :: Utilities",
-        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     ],
     keywords=
-    'python loading progress bar simple easy utilities useful package module tqdm pytest')
+    'python load bar loading progress simple easy utilities useful package module tqdm pytest pyloadbar'
+)

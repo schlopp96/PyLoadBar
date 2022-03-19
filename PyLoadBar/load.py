@@ -11,8 +11,6 @@ import tqdm
 #> Set CWD:
 chdir(dirname(__file__))
 
-VERSION = '0.0.6'
-
 #< Set Log Configuration:
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -27,12 +25,11 @@ logger.addHandler(fh)
 #%==============================================================================================%#
 
 
-def load(
-    msg_loading: str = 'Loading',
-    msg_complete: str = 'Done!',
-    progressbar: bool = True,
-    time: int = 5,
-) -> bool:
+def load(msg_loading: str = 'Loading',
+         msg_complete: str = 'Done!',
+         label: str = None,
+         time: int = 5,
+         show_bar: bool = True) -> None:
     """Breifly pause program while optionally displaying a customizable loading message, alongside an optional progress bar, to the console (stdout).
 
     - User may set custom strings through the parameters `msg_loading` and `msg_complete`.
@@ -44,16 +41,18 @@ def load(
         - `>>> load(time=20, progressbar=False)` will take around 2 seconds for `msg_complete` to display, following `msg_loading`.
 
     Parameters:
-        :param msg_loading: message to display during loading process, defaults to `"Loading"`
+        :param msg_loading: message to display during loading process, defaults to `"Loading"`.
         :type msg_loading: str, optional
-        :param msg_complete: message to display upon load completion, defaults to `"Done!"`
+        :param msg_complete: message to display upon load completion, defaults to `"Done!"`.
         :type msg_complete: str, optional
-        :param progressbar: whether to display progress bar during loading process, defaults to `True`
-        :type progressbar: bool, optional
+        :param label: label of progress bar.
+        :type label: str, optional
         :param time: time in seconds for progress bar to reach completion, defaults to `5`.
         :type time: int, optional
+        :param show_bar: whether to display progress bar during loading process, defaults to `True`
+        :type show_bar: bool, optional
         :return: loading sequence accompanied by an explanatory message to the user, and optional progress bar.
-        :rtype: bool
+        :rtype: None
     """
 
     try:
@@ -64,12 +63,12 @@ def load(
             msg_complete = msg_complete
 
         #$ Return load sequence:
-        if progressbar:
+        if show_bar:
             logger.info(
                 f'Begin loading sequence using progress bar...\n-> Loading Message: "{msg_loading}"\n'
             )
             print(f'{msg_loading}...\n')
-            for time in tqdm.trange(time):
+            for time in tqdm.trange(time, desc=label):
                 s(0.1)
                 time -= 1
         else:
@@ -86,10 +85,8 @@ def load(
         )
         print(f'\n{msg_complete}')
         s(0.5)
-        return True
     except ValueError as VE:
         logger.exception(f'Exception occurred:\n===>{VE}')
-        return False
 
 
 if __name__ == '__main__':

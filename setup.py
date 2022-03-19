@@ -1,12 +1,11 @@
 from setuptools import setup, find_packages
-from .PyLoadBar.__init__ import __version__
 
 with open('README.md', 'r') as fh:
     readme = fh.read()
 
 setup(
     name='PyLoadBar',
-    version=__version__,
+    version='0.7.0',
     description='Simple, easy-to-use loading sequence/progress bar module.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',

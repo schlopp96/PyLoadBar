@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setup(
     name='PyLoadBar',
-    version='0.7.0',
+    version='0.0.7',
     description='Simple, easy-to-use loading sequence/progress bar module.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',

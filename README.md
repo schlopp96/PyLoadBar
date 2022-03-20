@@ -13,7 +13,7 @@
   - Loading message defaults to `"Loading..."`.
   - Completion message defaults to `"Done!"`.
 
-- Includes an _optional_ progress bar (simple change the `show_bar: bool` parameter to equal `True`).
+- Includes an _optional_ progress bar (simply change the `enable_display: bool` parameter to equal `False` if you wish to disable the progress bar), toggled on by default.
 
 ---
 
@@ -85,11 +85,27 @@ Okay!
 
 - Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
-- Note that the progress bar **can be toggled** using the `show_bar: bool` parameter within the `load(msg_complete: str, msg_loading: str, show_bar: bool, time: int)` method.
+- Note that the progress bar **can be toggled** using the `enable_display: bool` parameter within the `load(msg_complete: str, msg_loading: str, time: int, enable_display: bool)` method.
 
 - The time taken to completely fill the progress bar can be determined using the `time: int` parameter.
+
   - Every 10 units = 1 second.
     - e.g. `load(time=5)` (default) would take 0.5 seconds to fill the progress bar.
+
+- You may also label the progress bar with the `label: str` parameter, defaults to `None`.
+
+- Example:
+
+  ```python
+  >>> from PyLoadBar import load
+
+  >>> load('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day')
+  Important Stuff Happening...
+
+  Saving Day: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:05<00:00,  9.19it/s]
+
+  Day Saved!
+  ```
 
 ---
 
@@ -105,6 +121,8 @@ pip install PyLoadBar[dev]
 
 ## Contact
 
-- If you have any questions, comments, or concerns that cannot be alleviated through the [project's GitHub repository](https://github.com/schlopp96/PyLoadBar), please feel free to contact me through my email address:
+- If you have any questions, comments, or concerns that cannot be addressed through the [project's GitHub repository](https://github.com/schlopp96/PyLoadBar), please feel free to contact me through my email address:
 
   - `schloppdaddy@gmail.com`
+
+---

@@ -11,15 +11,14 @@ import tqdm
 #> Set CWD:
 chdir(dirname(__file__))
 
+__version__ = '0.0.7.1'
+
 #< Set Log Configuration:
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-#$ Log formatting:
-formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
-#& Create File Handler:
+formatter = logging.Formatter('[%(asctime)s - %(levelname)s] : %(message)s')
 fh = logging.FileHandler('./logs/logfile.log')
 fh.setFormatter(formatter)
-#* Set File Handler
 logger.addHandler(fh)
 
 #%==============================================================================================%#
@@ -35,7 +34,7 @@ def load(msg_loading: str = 'Loading',
     - User may set custom loading/completion strings through the parameters `msg_loading` and `msg_complete`.
     - Set the length of pause in seconds using the `time` parameter.
         - Every increment of units = 0.1 seconds.
-    - Displaying a progress bar is activated by default, but may be disabled using the `show_loadbar` parameter.
+    - Displaying a progress bar is activated by default, but may be disabled using the `enable_display` parameter.
     -
     - Examples:
         - `>>> load(time=5, enable_display=True)` will take around 0.5 seconds to fill the progress bar.

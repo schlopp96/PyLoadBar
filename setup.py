@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 with open('README.md', 'r') as fh:
     readme = fh.read()
 with open('requirements.txt', 'r') as fh2:
-    reqs = fh.read()
+    reqs = fh2.read()
 
 setup(
     name='PyLoadBar',

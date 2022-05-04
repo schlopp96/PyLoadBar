@@ -1,13 +1,13 @@
-from PyLoadBar.load import load
+from PyLoadBar.main import load
 
 
 def test_loadA():
-    assert load(time=3, enable_display=False) is None
+    assert load(time=1, enable_display=False) is None
 
 
 def test_loadB():
     assert load("Taking sweet time",
-                "Fucking finally...\n\nJesus christ.") is None
+                "Finally...\n\nTook long enough.") is None
 
 
 def test_loadC():

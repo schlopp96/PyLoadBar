@@ -11,7 +11,7 @@ import tqdm
 #> Set CWD:
 chdir(dirname(__file__))
 
-__version__ = '0.0.7.1'
+__version__ = '0.0.8'
 
 #< Set Log Configuration:
 logger = logging.getLogger(__name__)

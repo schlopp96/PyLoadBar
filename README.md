@@ -1,6 +1,6 @@
 # PyLoadBar
 
-> _**Simple, easy-to-use loading sequence module.**_
+> _**Minimalist, easy-to-use loading sequence/progress bar module.**_
 
 ---
 
@@ -62,19 +62,21 @@
   - For example, try running the following:
 
 ```python
-from PyLoadBar import load
+>>> from PyLoadBar import PyLoadBar
 
-def add50(x):
-  load(f'Adding 50 to {x}', 'Okay!\n')
-  return x + 50
+>>> bar = PyLoadBar('Adding 50 to x', 'Okay!')
 
-print(add50(50))
+>>> def add50(x):
+        bar.load()
+        return x + 50
+
+>>> print(add50(50))
 ```
 
 - This will return:
 
 ```python
-Solving...
+Adding 50 to x...
 
 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
 
@@ -97,9 +99,12 @@ Okay!
 - Example:
 
   ```python
-  >>> from PyLoadBar import load
+  >>> from PyLoadBar import PyLoadBar
 
-  >>> load('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day')
+  >>> important_bar = PyLoadBar('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day')
+
+  >>> important_bar.load()
+
   Important Stuff Happening...
 
   Saving Day: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:05<00:00,  9.19it/s]

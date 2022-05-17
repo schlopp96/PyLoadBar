@@ -1,18 +1,22 @@
-from PyLoadBar.main import load
+from PyLoadBar.main import PyLoadBar
 
 
 def test_loadA():
-    assert load(time=1, enable_display=False) is None
+    bar = PyLoadBar(time=1, enable_display=False)
+    assert bar.load() is None
 
 
 def test_loadB():
-    assert load("Taking sweet time",
-                "Finally...\n\nTook long enough.") is None
+    bar = PyLoadBar("Taking sweet time",
+                "Finally...\n\nTook long enough.")
+    assert bar.load() is None
 
 
 def test_loadC():
-    assert load("Exiting", "Finished!!", enable_display=False) is None
+    bar = PyLoadBar('Exiting', 'Finished!!', enable_display=False)
+    assert bar.load() is None
 
 
 def test_loadD():
-    assert load(4, 3463463.4, time=3, enable_display=False) is None
+    bar = PyLoadBar(4, 3463463.4, time=3, enable_display=False)
+    assert bar.load() is None

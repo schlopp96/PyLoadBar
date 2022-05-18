@@ -53,7 +53,7 @@ class PyLoadBar:
         :type label: str, optional
         :param enable_display: toggle display of progress bar during loading process, defaults to `True`.
         :type enable_display: bool, optional
-        :return: loading sequence with optional visualization using progress meter.
+        :return: loading sequence.
         :rtype: None
         """
 

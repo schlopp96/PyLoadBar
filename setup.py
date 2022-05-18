@@ -20,7 +20,7 @@ setup(
     install_requires=[reqs],
     extras_require={"dev": ["pytest>=6.2.5"]},
     classifiers=[
-        "Development Status :: 3 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Intended Audience :: Developers",
         "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
@@ -32,5 +32,5 @@ setup(
         "Topic :: Utilities"
     ],
     keywords=[
-        'python, load, bar, loading, progress, simple, easy, utilities, useful, package, module, tqdm, pytest, pyloadbar, developer, tool'
+        'python, load, bar, loading, sequence, progress, simple, easy, utilities, package, module, tqdm, pytest, pyloadbar, developer, tool, tqdm'
     ])

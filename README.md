@@ -1,6 +1,6 @@
 # PyLoadBar
 
-> _**Minimalist, easy-to-use loading sequence/progress bar module.**_
+> _**Minimalist load sequence/progress bar module.**_
 
 ---
 
@@ -8,12 +8,12 @@
 
 - Useful for small intermittant pauses between console text returns, or code actions.
 
-- Customizable, optional loading and completion messages available to print to the console.
+- Customizable/optional loading and completion messages available to print to console (stdout).
 
   - Loading message defaults to `"Loading..."`.
   - Completion message defaults to `"Done!"`.
 
-- Includes an _optional_ progress bar (simply change the `enable_display: bool` parameter to equal `False` if you wish to disable the progress bar), toggled on by default.
+- Includes an _optional_ progress meter (simply change the `enable_display: bool` parameter to `False` if you wish to disable the progress meter), toggled on by default.
 
 ---
 
@@ -25,9 +25,9 @@
 
 - Run the following to install:
 
-```python
-    pip install PyLoadBar
-```
+  ```shell
+  pip install PyLoadBar
+  ```
 
 - You should now be able to import `PyLoadBar` directly to your application.
 
@@ -37,19 +37,23 @@
 
 > _Not_ recommended.
 
-1. Download source code from the [PyLoadBar GitHub repo](https://github.com/schlopp96/PyLoadBar).
+1. Download source code `.zip` archive from the PyLoadBar GitHub [releases](https://github.com/schlopp96/PyLoadBar/releases/latest) page and extract contents to desired location.
 
-2. Extract contents of the containing `**.zip` file to desired install location.
+- OR:
 
-3. Navigate to directory containing extracted contents, and open said folder within a terminal.
+1. Clone repository with the git client of your preference with:
 
-4. Enter `pip install -r requirements.txt` to install all dependencies for this package.
+   - `gh repo clone schlopp96/PyLoadBar`
 
-5. Finally, move the `"PyLoadBar-vx.x.x"` diretory to your global Python 3rd-party package installation directory to be able to import `PyLoadBar` like any other module:
+2. Navigate to directory containing extracted contents, and open said folder within a terminal.
 
-   - `"path/to/python/Lib/site-packages/here"`
+3. Enter `pip install -r requirements.txt` to install all dependencies for this package.
 
-6. Done!
+4. Finally, move the `"PyLoadBar-vx.x.x"` directory to your global Python 3rd-party package installation directory to be able to import `PyLoadBar` like any other module:
+
+   - `"~Python/Lib/site-packages/HERE"`
+
+5. Done!
 
 ---
 
@@ -64,10 +68,10 @@
 ```python
 >>> from PyLoadBar import PyLoadBar
 
->>> bar = PyLoadBar('Adding 50 to x', 'Okay!')
+>>> bar = PyLoadBar() # Initialize a new `PyLoadBar` instance.
 
 >>> def add50(x):
-        bar.load()
+        bar.load(msg_loading='Adding 50 to x', msg_complete='Okay!', time=30, label='Solving', enable_display=True) # Call `load` method to start loading sequence.
         return x + 50
 
 >>> print(add50(50))
@@ -78,32 +82,33 @@
 ```python
 Adding 50 to x...
 
-100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
+Solving: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
 
 Okay!
 
 100
 ```
 
-- Of course, the _loading_ and _loading complete_ messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
+- The **_loading_** and **_loading complete_** messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
-- Note that the progress bar **can be toggled** using the `enable_display: bool` parameter within the `load(msg_complete: str, msg_loading: str, time: int, enable_display: bool)` method.
+- Note that the progress bar **can be toggled** using the `enable_display: bool` parameter.
 
-- The time taken to completely fill the progress bar can be determined using the `time: int` parameter.
+- The time taken to complete the loading sequence can be determined using the `time: int` parameter.
 
+  - Each unit of time is equivalent to 1/10th of a second.
   - Every 10 units = 1 second.
     - e.g. `load(time=5)` (default) would take 0.5 seconds to fill the progress bar.
 
-- You may also label the progress bar with the `label: str` parameter, defaults to `None`.
+- You may also label the progress bar with the `label: str` parameter (defaults to `None`).
 
 - Example:
 
   ```python
   >>> from PyLoadBar import PyLoadBar
 
-  >>> important_bar = PyLoadBar('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day')
+  >>> important_bar = PyLoadBar() # Initialize a new `PyLoadBar` instance.
 
-  >>> important_bar.load()
+  >>> important_bar.load('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day') # Call `load` method to start loading sequence.
 
   Important Stuff Happening...
 
@@ -116,7 +121,7 @@ Okay!
 
 ## Contributing to PyLoadBar
 
-- If you wish to help contribute to this project, along with the tools you need to develop and run tests, please run the following in your virtual env:
+- If you wish to help contribute to this project, please run the following in your virtual env to acquire the necessary dependencies and tools you need to develop and run tests:
 
 ```python
 pip install PyLoadBar[dev]

@@ -6,14 +6,33 @@
 
 ## About
 
-- Useful for small intermittant pauses between console text returns, or code actions.
+- Useful for small intermittent pauses between console text returns, or code actions.
 
-- Customizable/optional loading and completion messages available to print to console (stdout).
+- Customizable/optional loading and completion messages are available to print to the console (stdout).
 
-  - Loading message defaults to `"Loading..."`.
-  - Completion message defaults to `"Done!"`.
+- Messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
-- Includes an _optional_ progress meter (simply change the `enable_display: bool` parameter to `False` if you wish to disable the progress meter), toggled on by default.
+  - The sequence loading message defaults to `"Loading..."`
+  - The sequence completion message defaults to `"Done!"`
+
+- You may apply a label to the progress bar using the `label: str` parameter (defaults to `None`).
+
+  - `enable_display: bool` must be set to `True` for a label to be assigned to the progress bar.
+
+- The time taken to complete each iteration can be determined using the `min_iter: float` and `max_iter: float` parameters.
+
+  - Each iteration length is randomized to a value between `min_iter: float` and `max_iter: float` seconds.
+    - e.g. `start(min_iter=0.5, max_iter=1.5)` would take anywhere between 0.5 - 1.5 seconds to complete a single iteration.
+
+- Users can choose between two different loading sequences:
+  **A.** Progress-bar style loading sequence
+  **B.** Animated-text style loading sequence
+
+- If `enable_display: bool` is `False, the progress-bar-based sequence will not be used, and the animated text-based loading sequence will be used instead.
+
+- The desired loading sequence **can be toggled** using the `enable_display: bool` parameter.
+
+- The text-based loading sequence displays the loading message followed by incrementing dots, all printed to the same line
 
 ---
 
@@ -37,84 +56,67 @@
 
 > _Not_ recommended.
 
-1. Download source code `.zip` archive from the PyLoadBar GitHub [releases](https://github.com/schlopp96/PyLoadBar/releases/latest) page and extract contents to desired location.
+**1a.** Download the latest source code `.zip` archive from the PyLoadBar GitHub [releases](https://github.com/schlopp96/PyLoadBar/releases/latest) page and extract contents to the desired location.
 
-- OR:
+- **OR:**
 
-1. Clone repository with the git client of your preference with:
+**1b.** Clone repository with the git client of your preference with:
 
-   - `gh repo clone schlopp96/PyLoadBar`
+```shell
+gh repo clone schlopp96/PyLoadBar
+```
 
-2. Navigate to directory containing extracted contents, and open said folder within a terminal.
+**2.** Navigate to the directory containing extracted contents, and open said folder within a terminal.
 
-3. Enter `pip install -r requirements.txt` to install all dependencies for this package.
+**3.** Enter `pip install -r requirements.txt` to install all dependencies for this package.
 
-4. Finally, move the `"PyLoadBar-vx.x.x"` directory to your global Python 3rd-party package installation directory to be able to import `PyLoadBar` like any other module:
+**4.** Finally, move the `"PyLoadBar-Vx.x.x"` directory to your global Python 3rd-party package installation directory to be able to import `PyLoadBar` like any other module:
 
-   - `"~Python/Lib/site-packages/HERE"`
+- `"~Python/Lib/site-packages/HERE"`
 
-5. Done!
+**5.** Done!
 
 ---
 
 ## Usage
 
-- Within a `.py` project, simply import the `PyLoadBar` module to start using your custom loading sequence.
-
 - `PyLoadBar` is _very_ simple to use.
 
-  - For example, try running the following:
+- Within a `.py` project, simply import the `PyLoadBar` module to start using your custom loading sequence.
 
-```python
->>> from PyLoadBar import PyLoadBar
-
->>> bar = PyLoadBar() # Initialize a new `PyLoadBar` instance.
-
->>> def add50(x):
-        bar.load(msg_loading='Adding 50 to x', msg_complete='Okay!', time=30, label='Solving', enable_display=True) # Call `load` method to start loading sequence.
-        return x + 50
-
->>> print(add50(50))
-```
-
-- This will return:
-
-```python
-Adding 50 to x...
-
-Solving: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 5/5 [00:00<00:00,  8.94it/s].
-
-Okay!
-
-100
-```
-
-- The **_loading_** and **_loading complete_** messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
-
-- Note that the progress bar **can be toggled** using the `enable_display: bool` parameter.
-
-- The time taken to complete the loading sequence can be determined using the `time: int` parameter.
-
-  - Each unit of time is equivalent to 1/10th of a second.
-  - Every 10 units = 1 second.
-    - e.g. `load(time=5)` (default) would take 0.5 seconds to fill the progress bar.
-
-- You may also label the progress bar with the `label: str` parameter (defaults to `None`).
-
-- Example:
+- Example of standard loading sequence with `label` set to `'Solving'`:
 
   ```python
-  >>> from PyLoadBar import PyLoadBar
+    >>> from PyLoadBar import PyLoadBar
 
-  >>> important_bar = PyLoadBar() # Initialize a new `PyLoadBar` instance.
+    >>> important_bar = PyLoadBar(msg_loading='Important Stuff Happening', msg_complete='Day Saved!', label='Saving Day') # Initialize a new `PyLoadBar` instance.
 
-  >>> important_bar.load('Important Stuff Happening', 'Day Saved!', 50, 'Saving Day') # Call `load` method to start loading sequence.
+    >>> important_bar.start(min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to start loading sequence.
 
-  Important Stuff Happening...
+    Important Stuff Happening...
 
-  Saving Day: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 50/50 [00:05<00:00,  9.19it/s]
+    Saving Day: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10
 
-  Day Saved!
+    Day Saved!
+  ```
+
+- Example of animated-text-based loading sequence:
+
+  ```python
+    >>> from PyLoadBar import PyLoadBar
+
+    >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_display=False) # Initialize loading sequence.
+
+    >>> bar.start(iter_total=1) # Start animated-text loading sequence.
+
+    # Note that during actual use case, text is printed to same line followed by incrementing dots:
+
+    Loading
+    Loading.
+    Loading..
+    Loading...
+
+    Done!
   ```
 
 ---
@@ -123,9 +125,9 @@ Okay!
 
 - If you wish to help contribute to this project, please run the following in your virtual env to acquire the necessary dependencies and tools you need to develop and run tests:
 
-```python
-pip install PyLoadBar[dev]
-```
+  ```shell
+    pip install PyLoadBar[dev]
+  ```
 
 ---
 

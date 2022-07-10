@@ -7,8 +7,9 @@ with open('requirements.txt', 'r') as fh2:
 
 setup(
     name='PyLoadBar',
-    version="0.0.8",
-    description='Simple, easy-to-use loading sequence/progress bar module.',
+    version="0.0.9",
+    description=
+    'Easy-to-use loading sequence/progress bar generator, enabling users to customize start/finish messages, toggle visual progress meter, set amount of iterations, among other features.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',
     author_email='schloppdaddy@gmail.com',
@@ -20,16 +21,14 @@ setup(
     install_requires=[reqs],
     extras_require={"dev": ["pytest>=6.2.5"]},
     classifiers=[
-        "Development Status :: 3 - Alpha",
-        "Intended Audience :: Developers",
+        "Development Status :: 3 - Alpha", "Intended Audience :: Developers",
         "Intended Audience :: End Users/Desktop",
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Natural Language :: English",
         "Operating System :: Microsoft :: Windows",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.9",
-        "Programming Language :: Python :: 3.10",
-        "Topic :: Utilities"
+        "Programming Language :: Python :: 3.10", "Topic :: Utilities"
     ],
     keywords=[
         'python, load, bar, loading, sequence, progress, simple, easy, utilities, package, module, tqdm, pytest, pyloadbar, developer, tool, tqdm'

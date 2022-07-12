@@ -7,9 +7,9 @@ with open('requirements.txt', 'r') as fh2:
 
 setup(
     name='PyLoadBar',
-    version="0.0.9",
+    version="0.0.9.1",
     description=
-    'Easy-to-use loading sequence/progress bar generator, enabling users to customize start/finish messages, toggle visual progress meter, set amount of iterations, among other features.',
+    'Customizeable loading sequence/progress bar generator, enabling users to customize start/finish messages, toggle sequence type, and set total iterations among other features.',
     url='https://github.com/schlopp96/PyLoadBar',
     author='schlopp96',
     author_email='schloppdaddy@gmail.com',

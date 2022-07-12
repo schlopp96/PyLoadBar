@@ -1,38 +1,36 @@
 # PyLoadBar
 
-> _**Minimalist load sequence/progress bar module.**_
+> _**Customizeable loading sequence/progress bar generator, enabling users to customize start/finish messages, toggle sequence type, and set total iterations among other features.**_
 
 ---
 
 ## About
 
-- Useful for small intermittent pauses between console text returns, or code actions.
+- Useful for small intermittent pauses between console text returns, or visualizing the progress of a long-running process.
 
-- Customizable/optional loading and completion messages are available to print to the console (stdout).
+- Users can choose between two different loading sequences:
+
+  - **A.** Progress-bar style loading sequence
+  - **B.** Animated-text style loading sequence
+
+- The desired loading sequence **can be toggled** using the `enable_bar: bool` parameter.
+
+  - If `enable_bar: bool` is `False`, the progress-bar sequence will not be used, and the animated text-based loading sequence will be used instead.
+
+- The text-based loading sequence displays the loading message followed by incrementing dots, all printed to the same line.
 
 - Messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
-  - The sequence loading message defaults to `"Loading..."`
-  - The sequence completion message defaults to `"Done!"`
+  - The loading message defaults to `"Loading..."`
+  - The completion message defaults to `"Done!"`
 
 - You may apply a label to the progress bar using the `label: str` parameter (defaults to `None`).
 
-  - `enable_display: bool` must be set to `True` for a label to be assigned to the progress bar.
+  - **NOTE:** `enable_bar: bool` must be set to `True` for a label to be assigned to the progress bar.
 
 - The time taken to complete each iteration can be determined using the `min_iter: float` and `max_iter: float` parameters.
-
   - Each iteration length is randomized to a value between `min_iter: float` and `max_iter: float` seconds.
     - e.g. `start(min_iter=0.5, max_iter=1.5)` would take anywhere between 0.5 - 1.5 seconds to complete a single iteration.
-
-- Users can choose between two different loading sequences:
-  **A.** Progress-bar style loading sequence
-  **B.** Animated-text style loading sequence
-
-- If `enable_display: bool` is `False, the progress-bar-based sequence will not be used, and the animated text-based loading sequence will be used instead.
-
-- The desired loading sequence **can be toggled** using the `enable_display: bool` parameter.
-
-- The text-based loading sequence displays the loading message followed by incrementing dots, all printed to the same line
 
 ---
 
@@ -91,7 +89,7 @@ gh repo clone schlopp96/PyLoadBar
 
     >>> important_bar = PyLoadBar(msg_loading='Important Stuff Happening', msg_complete='Day Saved!', label='Saving Day') # Initialize a new `PyLoadBar` instance.
 
-    >>> important_bar.start(min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to start loading sequence.
+    >>> important_bar.start(min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to begin loading sequence.
 
     Important Stuff Happening...
 
@@ -105,7 +103,7 @@ gh repo clone schlopp96/PyLoadBar
   ```python
     >>> from PyLoadBar import PyLoadBar
 
-    >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_display=False) # Initialize loading sequence.
+    >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_bar=False) # Initialize loading sequence.
 
     >>> bar.start(iter_total=1) # Start animated-text loading sequence.
 

@@ -10,16 +10,10 @@
 
 - Users can choose between two different loading sequences:
 
-  - **A.** Progress-bar style loading sequence
-  - **B.** Animated-text style loading sequence
+  - **A.** _Progress-bar_ style loading sequence
+  - **B.** _Animated-text_ style loading sequence
 
-- The desired loading sequence **can be toggled** using the `enable_bar: bool` parameter.
-
-  - If `enable_bar: bool` is `False`, the progress-bar sequence will not be used, and the animated text-based loading sequence will be used instead.
-
-- The text-based loading sequence displays the loading message followed by incrementing dots, all printed to the same line.
-
-- Messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
+- When instantiating a `PyLoadBar` object, messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
   - The loading message defaults to `"Loading..."`
   - The completion message defaults to `"Done!"`
@@ -28,9 +22,18 @@
 
   - **NOTE:** `enable_bar: bool` must be set to `True` for a label to be assigned to the progress bar.
 
-- The time taken to complete each iteration can be determined using the `min_iter: float` and `max_iter: float` parameters.
+- The desired loading sequence **can be toggled** using the `enable_bar: bool` parameter.
+
+  - If `enable_bar: bool` is `False`, the progress-bar sequence will not be used, and the animated text-based loading sequence will be used instead.
+
+- When calling the `start()` method and using the _progress-bar_ sequence, the time taken to complete each iteration can be determined using the `min_iter: float` and `max_iter: float` parameters.
+
   - Each iteration length is randomized to a value between `min_iter: float` and `max_iter: float` seconds.
     - e.g. `start(min_iter=0.5, max_iter=1.5)` would take anywhere between 0.5 - 1.5 seconds to complete a single iteration.
+
+- The _text-based_ loading sequence displays the loading message followed by incrementing dots, all printed to the same line.
+  - Set number of seconds to complete a single text-sequence iteration using `txt_seq_speed: float`.
+    - Defaults to `0.5` seconds per animation cycle.
 
 ---
 
@@ -105,7 +108,7 @@ gh repo clone schlopp96/PyLoadBar
 
     >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_bar=False) # Initialize loading sequence.
 
-    >>> bar.start(iter_total=1) # Start animated-text loading sequence.
+    >>> bar.start(iter_total=1, txt_iter_speed=1) # Start animated-text loading sequence.
 
     # Note that during actual use case, text is printed to same line followed by incrementing dots:
 

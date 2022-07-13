@@ -13,7 +13,7 @@ sys.path.insert(0, dirname(
 
 chdir(dirname(__file__))  # Change working directory to main module.
 
-__version__ = '0.0.9.1'
+__version__ = '0.0.9.2'
 
 
 class PyLoadBar:
@@ -83,7 +83,7 @@ class PyLoadBar:
                 - Time taken by each individual iteration is randomized within range of :param:`min_iter` and :param:`max_iter`.
 
             - Set number of seconds to complete a single text-sequence iteration using :param:`txt_seq_speed`.
-                -
+                - Defaults to `0.5` seconds per iteration/animation cycle.
 
         ---
 

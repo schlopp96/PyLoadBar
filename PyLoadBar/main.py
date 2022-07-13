@@ -13,7 +13,7 @@ sys.path.insert(0, dirname(
 
 chdir(dirname(__file__))  # Change working directory to main module.
 
-__version__ = '0.0.9.2'
+__version__ = '0.1.0'
 
 
 class PyLoadBar:
@@ -23,50 +23,41 @@ class PyLoadBar:
 
     Settings:
 
-        - When instantiating a new :class:`PyLoadBar` object, you can set the following parameters:
-            - Set custom start/completion messages by passing string to :param:`msg_loading` and :param:`msg_complete` respectively.
-            - Toggle visual progress meter using :param:`enable_bar`.
-            - Apply label to progress meter by passing string to :param:`label` (set to `None` by default)
-                    - Note that :param:`enable_bar` must be set to `True` for this to take effect.
+        - When instantiating a new :class:`PyLoadBar` object, you can set the sequence type using :param:`bar_sequence`.
 
-        - When calling :func:`start(self, iter_total, min_iter, max_iter, txt_seq_speed)`:
+        - When calling :func:`start(self, msg_loading, msg_complete, label, iter_total, min_iter, max_iter, txt_seq_speed)`:
+            - Set custom start/completion messages by passing string to :param:`msg_loading` and :param:`msg_complete` respectively.
             - Optionally set the total number of iterations to run using :param:`iter_total`, defaults to 5.
-            - Optionally set the minimum/maximum iteration length in seconds using the :param:`min_iter` and :param:`max_iter` parameters respectively
-                - Default values are `min_iter: 0.1` seconds and `max_iter: 1.0` seconds
+
+            - If using bar-sequence:
+                - Set the minimum/maximum iteration length in seconds using the :param:`min_iter` and :param:`max_iter` parameters respectively.
+                    - Time taken by each individual iteration is randomized within range of :param:`min_iter` and :param:`max_iter`.
+                - Apply label to progress meter by passing string to :param:`label` (set to `None` by default).
+
+            - If using text-sequence:
+                - Set number of seconds to complete a single text-sequence iteration using :param:`txt_seq_speed`.
+                    - Defaults to `0.5` seconds per iteration/animation cycle.
     """
 
-    def __init__(self,
-                 msg_loading: str | None = 'Loading',
-                 msg_complete: str | None = 'Done!',
-                 label: str | None = None,
-                 enable_bar: bool = True) -> None:
+    def __init__(self, bar_sequence: bool = True) -> None:
         """Initialize loading sequence with set configuration.
 
         ---
 
-        :param msg_loading: initial loading message, defaults to 'Loading'
-        :type msg_loading: :class:`str` | None, optional
-        :param msg_complete: final message displayed upon completion, defaults to 'Done!'
-        :type msg_complete: :class:`str` | None, optional
-        :param label: label displayed alongside progress bar, defaults to None
-        :type label: :class:`str` | None, optional
-        :param enable_bar: toggle visible progress bar, defaults to `True`
-        :type enable_bar: :class:`bool`, optional
+        :param bar_sequence: toggle progress-bar loading sequence, defaults to `True`
+        :type bar_sequence: :class:`bool`, optional
         :return: :class:`PyLoadBar` object
         :rtype: None
         """
 
-        self.msg_loading: str | None = msg_loading
-        self.msg_complete: str | None = msg_complete
-        self.label: str | None = label
-        self.enable_bar: bool = enable_bar
-
-        if self.enable_bar and self.msg_loading == 'Loading':
-            self.msg_loading = f'{msg_loading}...'  # Add ellipses to default progress-bar starting message.
+        self.bar_sequence: bool = bar_sequence
 
     def start(
         self,
-        iter_total: int = 10,
+        msg_loading: str | None = 'Loading',
+        msg_complete: str | None = 'Done!',
+        label: str | None = None,
+        iter_total: int = 5,
         min_iter: float = 0.01,
         max_iter: float = 0.5,
         txt_seq_speed: float = 0.5,
@@ -77,34 +68,53 @@ class PyLoadBar:
 
         Settings:
 
-            - Set the total number of iterations to complete using the :param:`iter_total` parameter.
+            - Set custom start/completion messages by passing string to :param:`msg_loading` and :param:`msg_complete` respectively.
+                - Note that :param:`bar_sequence` must be set to `True` for this to take effect.
 
-            - Set the minimum/maximum iteration length in seconds using the :param:`min_iter` and :param:`max_iter` parameters respectively.
-                - Time taken by each individual iteration is randomized within range of :param:`min_iter` and :param:`max_iter`.
+            - Set the total number of iterations to complete using the :param:`iter_total`.
+                - Defaults to 5 iterations.
 
-            - Set number of seconds to complete a single text-sequence iteration using :param:`txt_seq_speed`.
-                - Defaults to `0.5` seconds per iteration/animation cycle.
+            - If using bar-sequence:
+                - Set the minimum/maximum iteration length in seconds using the :param:`min_iter` and :param:`max_iter` parameters respectively.
+                    - Time taken by each individual iteration is randomized within range of :param:`min_iter` and :param:`max_iter`.
+                        - :param:`min_iter` defaults to 0.01 seconds, :param:`max_iter` defaults to 0.5 seconds.
+                - Apply label to progress meter by passing string to :param:`label` (set to `None` by default).
+
+            - If using text-sequence:
+                - Set number of seconds to complete a single text-sequence iteration using :param:`txt_seq_speed`.
+                    - Defaults to `0.5` seconds per iteration/animation cycle.
 
         ---
 
+        :param msg_loading: initial loading message, defaults to 'Loading'
+        :type msg_loading: :class:`str` | None, optional
+        :param msg_complete: final message displayed upon completion, defaults to 'Done!'
+        :type msg_complete: :class:`str` | None, optional
+        :param label: label displayed alongside progress bar, defaults to None
+        :type label: :class:`str` | None, optional
         :param iter_total: total amount of iterations to run, defaults to 5
         :type iter_total: :class:`int`, optional
-        :param min_iter: minimum possible time to complete an iteration, defaults to 0.05 seconds
+        :param min_iter: minimum possible time to complete an iteration, defaults to 0.01 seconds
         :type min_iter: :class:`float`, optional
-        :param max_iter: maximum possible time to complete an iteration, defaults to 0.25 seconds
+        :param max_iter: maximum possible time to complete an iteration, defaults to 0.5 seconds
         :type max_iter: :class:`float`, optional
         :param txt_seq_speed: number of seconds to complete a single text-sequence iteration, defaults to 0.5 seconds
         :type txt_seq_speed: :class:`float`, optional
-        :return: enable loading sequence
+        :return: loading sequence
         :rtype: None
         """
 
+        if self.bar_sequence and msg_loading == 'Loading':
+            msg_loading = f'{msg_loading}...'  # Add ellipses to default progress-bar starting message.
+
         try:
-            if self.enable_bar:
-                self.__bar_seq(iter_total, min_iter, max_iter)
+            if self.bar_sequence:
+                self.__bar_seq(msg_loading, msg_complete, label, iter_total,
+                               min_iter, max_iter)
 
             else:
-                self.__text_seq(iter_total, txt_seq_speed)
+                self.__text_seq(msg_loading, msg_complete, iter_total,
+                                txt_seq_speed)
 
             sleep(
                 0.5
@@ -113,7 +123,9 @@ class PyLoadBar:
         except Exception as e:
             print(f'Error: {e}')
 
-    def __bar_seq(self, iter_total: int, min_iter: float,
+    @staticmethod
+    def __bar_seq(msg_loading: str | None, msg_complete: str | None,
+                  label: str | None, iter_total: int, min_iter: float,
                   max_iter: float) -> None:
         """
         Run loading sequence with progress bar.
@@ -123,8 +135,8 @@ class PyLoadBar:
         Example:
 
         ```python
-            >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', label='Progress') # Initialize loading sequence.
-            >>> bar.start(iter_total=5, min_iter=0.1, max_iter=1.0) # Start loading sequence.
+            >>> bar = PyLoadBar() # Initialize loading sequence.
+            >>> bar.start(msg_loading='Loading', msg_complete='Done!', label='Progress', iter_total=5, min_iter=0.1, max_iter=1.0) # Start loading sequence.
 
             Loading...
 
@@ -136,6 +148,12 @@ class PyLoadBar:
 
         ---
 
+        :param msg_loading: initial loading message
+        :type msg_loading: :class:`str` | None
+        :param msg_complete: final message displayed upon completion
+        :type msg_complete: :class:`str` | None
+        :param label: label displayed alongside progress bar
+        :type label: :class:`str` | None
         :param iter_total: total amount of iterations to run
         :type iter_total: :class:`int`
         :param min_iter: minimum possible time (in seconds) an iteration can take
@@ -146,19 +164,21 @@ class PyLoadBar:
         :rtype: None
         """
 
-        print(f'{self.msg_loading}\n')
+        print(f'{msg_loading}\n')
 
         # Start progress-bar iteration.
         for iter in tqdm.trange(
                 iter_total,
-                desc=self.label,
+                desc=label,
                 bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt}]'):
             sleep(uniform(min_iter, max_iter))
             iter -= 1
 
-        print(f'{self.msg_complete}\n')  # Print completion message.
+        print(f'\n{msg_complete}\n')  # Print completion message.
 
-    def __text_seq(self, iter_total: int, iter_speed: float) -> None:
+    @staticmethod
+    def __text_seq(msg_loading: str | None, msg_complete: str | None,
+                   iter_total: int, iter_speed: float) -> None:
         """Run text-based loading sequence.
 
         ---
@@ -166,28 +186,30 @@ class PyLoadBar:
         Example:
 
         ```python
-            >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_bar=False) # Initialize loading sequence.
-            >>> bar.start(iter_total=1) # Start loading sequence.
+            >>> bar = PyLoadBar(bar_sequence=False) # Initialize loading sequence.
+            >>> bar.start(msg_loading='Loading', msg_complete='Done!', iter_total=1, txt_seq_speed=1) # Start loading sequence.
             >>> # Note that during actual use case, text is printed to same line followed by an animated '.' character sequence:
 
             # Would look like:
-                It(1) line 1: \r`bar.msg_loading`
-                It(2) line 1: \r`bar.msg_loading`.
-                It(3) line 1: \r`bar.msg_loading`..
-                It(4) line 1: \r`bar.msg_loading`...
+                It(1) line 1: \r"Loading"
+                It(2) line 1: \r"Loading."
+                It(3) line 1: \r"Loading.."
+                It(4) line 1: \r"Loading..."
 
                 Repeat(...)
 
 
-                Line 3: `bar.msg_complete`
+                Line 3: "Done!"
 
         ```
 
         ---
 
-        :param iter_total: Amount of iterations to run loading sequence
+        :param msg_loading: initial loading message
+        :type msg_loading: :class:`str` | None
+        :param iter_total: number of iterations to run during loading sequence
         :type iter_total: :class:`int`
-        :param iter_speed: Seconds per text-sequence iteration
+        :param iter_speed: number of seconds to complete a single text-sequence iteration
         :type iter_speed: :class:`float`
         :return: animated text-based progress sequence
         :rtype: None
@@ -195,7 +217,7 @@ class PyLoadBar:
 
         # Start text animation.
         for iter in range(iter_total):
-            print(f'{self.msg_loading}', end='', flush=True)
+            print(f'{msg_loading}', end='', flush=True)
             sleep(iter_speed / 4)
 
             for _ in range(3):  # Add 3 dots to `msg_loading` message.
@@ -206,4 +228,4 @@ class PyLoadBar:
 
             iter -= 1
 
-        print(f'\n{self.msg_complete}\n')  # Print completion message.
+        print(f'\n{msg_complete}\n')  # Print completion message.

@@ -13,18 +13,20 @@
   - **A.** _Progress-bar_ style loading sequence
   - **B.** _Animated-text_ style loading sequence
 
-- When instantiating a `PyLoadBar` object, messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
+- When instantiating a `PyLoadBar` object, you may set the type of loading sequence using the `bar_sequence: bool` parameter.
+
+- Once initialized, run the loading sequence using the `start()` method, and set sequence configuration using parameters.
+
+- Messages can be customized by passing custom strings to the `msg_loading: str` and `msg_complete: str` parameters respectively.
 
   - The loading message defaults to `"Loading..."`
   - The completion message defaults to `"Done!"`
 
 - You may apply a label to the progress bar using the `label: str` parameter (defaults to `None`).
 
-  - **NOTE:** `enable_bar: bool` must be set to `True` for a label to be assigned to the progress bar.
+  - **NOTE:** `bar_sequence: bool` must be set to `True` for a label to be assigned to the progress bar.
 
-- The desired loading sequence **can be toggled** using the `enable_bar: bool` parameter.
-
-  - If `enable_bar: bool` is `False`, the progress-bar sequence will not be used, and the animated text-based loading sequence will be used instead.
+  - If `bar_sequence: bool` is `False`, the _progress-bar sequence_ will **not** be used, and the _animated text-based_ loading sequence **will** be used instead.
 
 - When calling the `start()` method and using the _progress-bar_ sequence, the time taken to complete each iteration can be determined using the `min_iter: float` and `max_iter: float` parameters.
 
@@ -90,9 +92,9 @@ gh repo clone schlopp96/PyLoadBar
   ```python
     >>> from PyLoadBar import PyLoadBar
 
-    >>> important_bar = PyLoadBar(msg_loading='Important Stuff Happening', msg_complete='Day Saved!', label='Saving Day') # Initialize a new `PyLoadBar` instance.
+    >>> important_bar = PyLoadBar() # Initialize a new `PyLoadBar` instance.
 
-    >>> important_bar.start(min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to begin loading sequence.
+    >>> important_bar.start(msg_loading='Important Stuff Happening', msg_complete='Day Saved!', label='Saving Day', min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to begin loading sequence.
 
     Important Stuff Happening...
 
@@ -106,9 +108,9 @@ gh repo clone schlopp96/PyLoadBar
   ```python
     >>> from PyLoadBar import PyLoadBar
 
-    >>> bar = PyLoadBar(msg_loading='Loading', msg_complete='Done!', enable_bar=False) # Initialize loading sequence.
+    >>> bar = PyLoadBar(bar_sequence=False) # Initialize loading sequence.
 
-    >>> bar.start(iter_total=1, txt_iter_speed=1) # Start animated-text loading sequence.
+    >>> bar.start(msg_loading='Loading', msg_complete='Done!', iter_total=1, txt_iter_speed=1) # Start animated-text loading sequence.
 
     # Note that during actual use case, text is printed to same line followed by incrementing dots:
 

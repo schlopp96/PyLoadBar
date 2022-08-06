@@ -3,3 +3,4 @@ include *.txt
 recursive-include PyLoadBar *.py
 recursive-include PyLoadBar *.gitkeep
 recursive-include tests *.py
+recursive-include assets *.gif

@@ -1,6 +1,6 @@
 # PyLoadBar
 
-> _**Customizeable loading sequence/progress bar generator, enabling users to customize start/finish messages, toggle sequence type, and set total iterations among other features.**_
+> _**Loading sequence/progress bar generator with options for users to customize start/finish messages, toggle between bar/text sequences, and set total iterations among other features.**_
 
 ---
 
@@ -34,7 +34,7 @@
     - e.g. `start(min_iter=0.5, max_iter=1.5)` would take anywhere between 0.5 - 1.5 seconds to complete a single iteration.
 
 - The _text-based_ loading sequence displays the loading message followed by incrementing dots, all printed to the same line.
-  - Set number of seconds to complete a single text-sequence iteration using `txt_seq_speed: float`.
+  - Set number of seconds to complete a single text-sequence iteration using `txt_iter_speed: float`.
     - Defaults to `0.5` seconds per animation cycle.
 
 ---
@@ -96,12 +96,9 @@ gh repo clone schlopp96/PyLoadBar
 
     >>> important_bar.start(msg_loading='Important Stuff Happening', msg_complete='Day Saved!', label='Saving Day', min_iter=0.05, max_iter=1.0, iter_total=10) # Call `start` method to begin loading sequence.
 
-    Important Stuff Happening...
-
-    Saving Day: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 10/10
-
-    Day Saved!
   ```
+
+    ![alt](./assets/bar_sequence.gif)
 
 - Example of animated-text-based loading sequence:
 
@@ -112,25 +109,9 @@ gh repo clone schlopp96/PyLoadBar
 
     >>> bar.start(msg_loading='Loading', msg_complete='Done!', iter_total=1, txt_iter_speed=1) # Start animated-text loading sequence.
 
-    # Note that during actual use case, text is printed to same line followed by incrementing dots:
-
-    Loading
-    Loading.
-    Loading..
-    Loading...
-
-    Done!
   ```
 
----
-
-## Contributing to PyLoadBar
-
-- If you wish to help contribute to this project, please run the following in your virtual env to acquire the necessary dependencies and tools you need to develop and run tests:
-
-  ```shell
-    pip install PyLoadBar[dev]
-  ```
+    ![alt](./assets/text_sequence.gif)
 
 ---
 

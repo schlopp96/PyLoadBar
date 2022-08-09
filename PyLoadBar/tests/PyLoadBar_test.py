@@ -26,7 +26,7 @@ def test_text_params():
     assert seq.start(msg_loading='TEST',
                      msg_complete='COMPLETE',
                      iter_total=5,
-                     iter_speed=0.25) is None
+                     txt_iter_speed=0.25) is None
 
 
 def test_numbers_in_message_params():
